@@ -1,0 +1,15 @@
+<div class="login-form">
+  <h2>Login</h2>
+  <label class="label">Username</label>
+  <input  class="inputbox" type="text"   placeholder="Enter Username" [(ngModel)]="username" >
+  <label class="label">Password</label>
+  <input class="inputbox" [type]="showPasswordFlag"   placeholder="Enter Password" [(ngModel)]="password">
+  <i class="fa fa-eye" aria-hidden="true" (click)="showPassword()" ></i>
+  <label class="checkbox"><input type="checkbox" [(ngModel)]="remember"> Remember Me</label>
+
+    <button (click)="login()" class="button">Login</button>
+    <div class="signup">
+      <p>Don't have an Account?</p>
+    <button class="button" (click)="navigateToSignUp()">Create Account</button>
+    </div>
+</div>
