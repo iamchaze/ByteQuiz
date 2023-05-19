@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
 import { HomeComponent } from './components/home/home.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { ResultComponent } from './components/result/result.component';
@@ -29,12 +27,13 @@ import { DynamicDialogModule } from "primeng/dynamicdialog";
 import { VirtualScrollerModule } from "primeng/virtualscroller";
 import { CardModule } from "primeng/card";
 import { QuestionComponent } from './components/question/question.component';
+import { AccordionModule } from 'primeng/accordion';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    SignupComponent,
     HomeComponent,
     QuizComponent,
     ResultComponent,
@@ -60,7 +59,10 @@ import { QuestionComponent } from './components/question/question.component';
     DynamicDialogModule,
     VirtualScrollerModule,
     CardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AccordionModule,
+    CheckboxModule,
+    ToggleButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

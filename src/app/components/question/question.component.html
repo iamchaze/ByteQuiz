@@ -1,1 +1,14 @@
+<div class="card">
+  <div class="card-header">
+    <h2>QuizMe</h2>
+  </div>
+  <div class="card-body">
+    <div *ngFor="let question of questions">
+      <h4> {{question.question}} </h4>
+      <div>
+        {{question.answers[0]}}
+      </div>
+    </div>
 
+  </div>
+</div>

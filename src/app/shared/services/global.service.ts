@@ -25,9 +25,9 @@ export class GlobalService {
   }
 
   //Add a Record (POST)
-  addRecord(path:string, id:any){
+  addRecord(path:string, data:any){
     const url = `${this.databaseUrl}/${path}`
-    return this.http.post(url, id)
+    return this.http.post(url, data)
   }
 
   //Delete a Record (DELETE)
@@ -43,13 +43,14 @@ export class GlobalService {
   }
 
   // -----------------Autorization-------------------
-  login(user:any, remember:boolean, userid:any){
+  login(userdata:any, remember:boolean){
+    console.log(userdata);
     if(remember){
-      localStorage.setItem("username", user)
-      localStorage.setItem("userid", userid)
+      localStorage.setItem("username", userdata[0].username);
+      localStorage.setItem("userid", userdata[0].id);
     } else {
-      sessionStorage.setItem("username", user)
-      sessionStorage.setItem("userid", userid)
+      sessionStorage.setItem("username", userdata[0].username);
+      sessionStorage.setItem("userid", userdata[0].id);
     }
   }
   logout(data:any){
@@ -58,7 +59,7 @@ export class GlobalService {
       sessionStorage?.removeItem("userid")
       localStorage?.removeItem("username")
       localStorage?.removeItem("userid")
-      this.router.navigate(['/login'])
+      this.router.navigate(['/'])
     } else {
 
     }

@@ -1,0 +1,12 @@
+
+.card-body > *{
+  display: block;
+  margin: 2% auto;
+  text-align: center;
+}
+span{
+  align-items: top;
+}
+span > * {
+  margin: 0;
+}
