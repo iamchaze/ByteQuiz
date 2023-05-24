@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { ResultComponent } from './components/result/result.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavComponent } from './components/nav/nav.component';
@@ -40,7 +39,6 @@ import { DividerModule } from 'primeng/divider';
     HomeComponent,
     QuizComponent,
     ResultComponent,
-    ProfileComponent,
     NavComponent,
     QuestionComponent,
     SanitizeHtmlPipe
