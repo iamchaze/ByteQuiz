@@ -1,14 +1,20 @@
-<div class="card">
-  <div class="card-header">
-    <h2>QuizMe</h2>
-  </div>
-  <div class="card-body">
-    <div *ngFor="let question of questions">
-      <h4> {{question.question}} </h4>
-      <div>
-        {{question.answers[0]}}
+<p-card header="TOPIC: {{ category | uppercase }} - {{ difficulty | uppercase }} ">
+  <div *ngFor="let question of questions | paginate: { itemsPerPage: 1, currentPage: currentPage}">
+    <p-divider align="left">
+      <div class="inline-flex align-items-center">
+        <b>Question No. {{question.questionNo}} </b>
+      </div>
+    </p-divider>
+    <h3>{{ question.question }}</h3>
+    <div *ngFor="let answer of question.answers">
+      <div *ngIf="answer !== null">
+        <input type="radio" name="option" value="answer.value">
+        <label for=""> {{ answer }} </label>
       </div>
     </div>
-
   </div>
-</div>
+  <pagination-controls (pageChange)="onPageChange($event)" currentPage="currentPage" previousLabel="Previous Question"
+    nextLabel="Next Question">
+  </pagination-controls>
+  <button pButton pRipple label="Submit" class="p-button-success"></button>
+</p-card>

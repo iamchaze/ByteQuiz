@@ -8,7 +8,6 @@
           inputId="state"
           [options]="quizCategory"
           placeholder="Select"
-          optionLabel="name"
           [showClear]="true"
           formControlName="category"
         ></p-dropdown>
@@ -26,10 +25,8 @@
           type="submit"
           [disabled]="!quizForm.valid"
           styleClass="ui-button-info"
-          routerLink="question"
         ></p-button>
         </div>
     </form>
-
   </div>
 </div>

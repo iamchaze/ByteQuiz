@@ -12,7 +12,7 @@ const routes: Routes = [
   {path:"profile", component:ProfileComponent},
   {path:"quiz", component:QuizComponent},
   {path:"quiz", component:QuizComponent},
-  {path:"question/:category/:diff", component:QuestionComponent},
+  {path:"question/:category/:difficulty", component:QuestionComponent},
   {path:"result", component:ResultComponent},
 ];
 

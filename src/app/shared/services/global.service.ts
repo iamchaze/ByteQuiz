@@ -44,7 +44,6 @@ export class GlobalService {
 
   // -----------------Autorization-------------------
   login(userdata:any, remember:boolean){
-    console.log(userdata);
     if(remember){
       localStorage.setItem("username", userdata[0].username);
       localStorage.setItem("userid", userdata[0].id);

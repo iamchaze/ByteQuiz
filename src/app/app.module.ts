@@ -10,9 +10,10 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavComponent } from './components/nav/nav.component';
+import { SanitizeHtmlPipe } from './shared/pipes/sanitize-html.pipe';
 
 //primeng Modules -------------------------------
-
+import {NgxPaginationModule} from 'ngx-pagination';
 import { DropdownModule } from "primeng/dropdown";
 import { InputTextModule } from "primeng/inputtext";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -30,6 +31,8 @@ import { QuestionComponent } from './components/question/question.component';
 import { AccordionModule } from 'primeng/accordion';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { RippleModule } from 'primeng/ripple';
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     ResultComponent,
     ProfileComponent,
     NavComponent,
-    QuestionComponent
+    QuestionComponent,
+    SanitizeHtmlPipe
   ],
   imports: [
     BrowserModule,
@@ -62,7 +66,10 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     ReactiveFormsModule,
     AccordionModule,
     CheckboxModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    RippleModule,
+    DividerModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

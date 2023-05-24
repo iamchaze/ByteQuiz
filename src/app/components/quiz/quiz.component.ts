@@ -32,15 +32,7 @@ export class QuizComponent implements OnInit {
       value: "hard",
     },
   ];
-  quizCategory:any = [
-    { name: "Movies", code: 11 },
-    { name: "Technology", code: 18 },
-    { name: "Sports", code: 21 },
-    { name: "History", code: 23 },
-    { name: "Politics", code: 24 },
-    { name: "Mathematics", code: 19 },
-  ];
-
+  quizCategory:any = ["Linux", "Bash","Uncategorized","Docker","SQL","CMS","Code","DevOps"];
 
   constructor(
     private fb: FormBuilder,
@@ -53,9 +45,8 @@ export class QuizComponent implements OnInit {
     })
   }
   onSubmit(value: string) {
-
     this.quizOptions = value
-    this.category = this.quizOptions.category.name
+    this.category = this.quizOptions.category
     this.difficulty = this.quizOptions.difficulty
 
     this.router.navigate([`question/${this.category}/${this.difficulty}`])

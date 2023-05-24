@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit{
   }
 
   login(value:any){
-    console.log(value);
     this.service.getRecords("Users").subscribe(result => {
       this.usersData = result
       this.validUserRecord = this.usersData.filter((record:any) => {
@@ -43,6 +42,10 @@ export class HomeComponent implements OnInit{
       if(this.validUserRecord?.length > 0){
         this.service.login(this.validUserRecord, this.isRememberedChecked)
         this.router.navigate(['quiz'])
+      } else {
+        alert("Invalid Credentials.")
+        this.username = ""
+        this.password = ""
       }
     })
   }
