@@ -7,7 +7,6 @@ import { QuizComponent } from './components/quiz/quiz.component';
 import { ResultComponent } from './components/result/result.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NavComponent } from './components/nav/nav.component';
 import { SanitizeHtmlPipe } from './shared/pipes/sanitize-html.pipe';
 //primeng Modules -------------------------------
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -37,7 +36,6 @@ import { NgxUiLoaderModule, NgxUiLoaderRouterModule, NgxUiLoaderHttpModule  } fr
     AppComponent,
     QuizComponent,
     ResultComponent,
-    NavComponent,
     QuestionComponent,
     SanitizeHtmlPipe
   ],

@@ -20,7 +20,7 @@
       <h4 id="question">{{ question.question }}</h4>
       <div *ngFor="let answer of question.answers">
         <div *ngIf="answer !== null" id="option">
-          <label name="option"> <input type="radio" ngModel name="option" #radioOption [value]="answer" required> {{ answer }}</label>
+          <label name="option"> <input type="radio" [disabled]="isAnswerCorrect" ngModel name="option" #radioOption [value]="answer" required> {{ answer }}</label>
         </div>
       </div>
     </div>
