@@ -10,7 +10,8 @@ export class ResultComponent implements OnInit {
 
   incorrectAns:any
   allQues:any
-  totalQuestionsCount:number = 3
+  totalQuestionsCount:any
+  wrongAnsCount:any = 0
   constructor(private quizresult: QuizresultService){}
 
   ngOnInit(){
@@ -20,5 +21,15 @@ export class ResultComponent implements OnInit {
 
   getQueData(){
       this.allQues = this.quizresult.showQuestionsData()
+      if(this.allQues){
+        this.totalQuestionsCount = this.allQues?.length
+      this.allQues.forEach((question:any) => {
+        console.log(question);
+        if(question.hasOwnProperty('isSolvedWrong')){
+          this.wrongAnsCount +=1
+        }
+      });
+      }
   }
+
 }

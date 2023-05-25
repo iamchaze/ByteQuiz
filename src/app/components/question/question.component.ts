@@ -18,6 +18,7 @@ export class QuestionComponent implements OnInit {
     private quizresult: QuizresultService
   ) {}
   questions: any = [];
+  questionCount:any
   answers: any = [];
   options: any = [];
   category: any;
@@ -33,7 +34,7 @@ export class QuestionComponent implements OnInit {
   ngOnInit(): void {
     this.category = this.route.snapshot.paramMap.get('category');
     this.difficulty = this.route.snapshot.paramMap.get('difficulty');
-    this.getQuizzes();
+    this.getQuizzes()
   }
   getQuizzes() {
     this.apiService
@@ -50,6 +51,7 @@ export class QuestionComponent implements OnInit {
           question.correct_answers = Object.values(question.correct_answers);
         });
         console.log(this.questions);
+        this.questionCount = this.questions.length
       });
   }
   submitQuiz() {
