@@ -4,10 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuizComponent } from './components/quiz/quiz.component';
+import { QuestionComponent } from './components/question/question.component';
 import { ResultComponent } from './components/result/result.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SanitizeHtmlPipe } from './shared/pipes/sanitize-html.pipe';
 //primeng Modules -------------------------------
 import {NgxPaginationModule} from 'ngx-pagination';
 import { DropdownModule } from "primeng/dropdown";
@@ -23,7 +23,6 @@ import { DialogModule } from "primeng/dialog";
 import { DynamicDialogModule } from "primeng/dynamicdialog";
 import { VirtualScrollerModule } from "primeng/virtualscroller";
 import { CardModule } from "primeng/card";
-import { QuestionComponent } from './components/question/question.component';
 import { AccordionModule } from 'primeng/accordion';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ToggleButtonModule } from 'primeng/togglebutton';
@@ -36,8 +35,7 @@ import { NgxUiLoaderModule, NgxUiLoaderRouterModule, NgxUiLoaderHttpModule  } fr
     AppComponent,
     QuizComponent,
     ResultComponent,
-    QuestionComponent,
-    SanitizeHtmlPipe
+    QuestionComponent
   ],
   imports: [
     BrowserModule,
