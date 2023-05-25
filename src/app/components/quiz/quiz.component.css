@@ -1,0 +1,14 @@
+.card-body{
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+}
+h2{
+  margin: 25px;
+  margin-bottom: 100px;
+  /* text-shadow:0 0 5px rgba(149, 110, 212, 0.5); */
+}
+.input-field{
+  margin: 25px;
+}

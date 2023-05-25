@@ -1,4 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
-@import "~primeng.css"
+@import "~primeng.css";
+
+
+
+body{
+  margin: 0;
+  padding: 0;
+  font-family: 'IBM Plex Sans';
+  background-color: #e9ecef;
+}

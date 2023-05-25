@@ -1,43 +1,58 @@
-<p-accordion [activeIndex]="0">
-  <p-accordionTab header="Sign In">
-    <div class="card">
-      <div class="card-body">
-        <form ngForm #loginForm="ngForm" (ngSubmit)="login(loginForm.value)">
-          <label for="username">Username: </label>
-          <input type="text" pInputText [(ngModel)]="username" name="username" required />
-          <label for="password">Password: </label>
-         <div>
-          <input [type]="inputProperty" pInputText [(ngModel)]="password" name="password" required />
-          <p-toggleButton (click)="showPassword()" [onLabel]="showPasswordLabel" [offLabel]="showPasswordLabel"></p-toggleButton>
-         </div>
-          <span>Remember Me <p-checkbox [(ngModel)]="isRememberedChecked" name="rememberMe" [binary]="true"
-              inputId="binary"></p-checkbox></span>
-
-          <button pButton pRipple label="Sign In" class="p-button-success" [disabled]="loginForm.invalid"
-            routerLink=""></button>
-        </form>
+<div>
+  <p-accordion [activeIndex]="0">
+    <p-accordionTab header="Sign In">
+      <div class="card">
+        <div class="card-body">
+          <form ngForm #loginForm="ngForm" (ngSubmit)="login(loginForm.value)">
+            <div class="input-field">
+              <input type="text" pInputText [(ngModel)]="username" name="username" required placeholder="Username" />
+            </div>
+            <div class="input-field">
+              <input [type]="inputProperty" pInputText [(ngModel)]="password" name="password" required
+                placeholder="Password" />
+              <p-toggleButton (click)="showPassword()" [onLabel]="showPasswordLabel"
+                [offLabel]="showPasswordLabel"></p-toggleButton>
+            </div>
+            <div class="input-field">
+              <span>Remember Me
+                <p-checkbox [(ngModel)]="isRememberedChecked" name="rememberMe" [binary]="true" inputId="binary"
+                  class="m-0"></p-checkbox></span>
+            </div>
+            <div>
+              <button pButton pRipple label="Sign In" id="signin-btn" class="p-button-success"
+                [disabled]="loginForm.invalid" routerLink=""></button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  </p-accordionTab>
-  <p-accordionTab header="Register">
-    <div class="card">
-      <div class="card-body">
-        <form ngForm #signupForm="ngForm" (ngSubmit)="signUp(signupForm.value)">
-          <label for="fullName">Full Name: </label>
-          <input type="text" pInputText [(ngModel)]="fullName" name="fullName" required />
-          <label for="companyName">Company Name: </label>
-          <input type="text" pInputText [(ngModel)]="companyName" name="companyname" required />
-          <label for="username">Username: </label>
-          <input type="text" pInputText [(ngModel)]="username" name="username" required />
-          <label for="password">Password: </label>
-          <div>
-            <input [type]="inputProperty" pInputText [(ngModel)]="password" name="password" required />
-          <p-toggleButton (click)="showPassword()" [onLabel]="showPasswordLabel" [offLabel]="showPasswordLabel" ></p-toggleButton>
-          </div>
-          <button pButton pRipple label="Sign In" class="p-button-success" [disabled]="loginForm.invalid"
-            routerLink=""></button>
-        </form>
+    </p-accordionTab>
+    <p-accordionTab header="Register">
+      <div class="card">
+        <div class="card-body">
+          <form ngForm #signupForm="ngForm" (ngSubmit)="signUp(signupForm.value)">
+            <div class="input-field">
+              <input type="text" pInputText [(ngModel)]="fullName" name="fullName" required placeholder="Full Name" />
+            </div>
+            <div class="input-field">
+              <input type="text" pInputText [(ngModel)]="companyName" name="companyname" required
+                placeholder="Company Name" />
+            </div>
+            <div class="input-field">
+              <input type="text" pInputText [(ngModel)]="username" name="username" required placeholder="Username" />
+            </div>
+            <div class="input-field" >
+              <input [type]="inputProperty" pInputText [(ngModel)]="password" name="password" required
+                placeholder="Password" />
+              <p-toggleButton (click)="showPassword()" [onLabel]="showPasswordLabel"
+                [offLabel]="showPasswordLabel"></p-toggleButton>
+            </div>
+            <div>
+              <button pButton pRipple label="Sign Up" class="p-button-success" [disabled]="loginForm.invalid"
+              routerLink=""></button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  </p-accordionTab>
-</p-accordion>
+    </p-accordionTab>
+  </p-accordion>
+</div>

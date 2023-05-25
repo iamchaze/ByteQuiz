@@ -1,0 +1,33 @@
+#question{
+  font-size: 1.2rem;
+}
+#option{
+  padding: 10px;
+}
+h4{
+  font-size: 1rem;
+}
+#button{
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  font-weight: bold;
+}
+#warning, #wrong{
+  color: red;
+  background-color: red;
+  background-color: rgba(255, 0, 0, .1);
+}
+#correct{
+  color: green;
+  background-color: rgba(0, 255, 0, .1);
+}
+
+.alert{
+  display: block;
+  text-align: center;
+  font-size: 1rem;
+}
+#question{
+  margin-top: 20px;
+}

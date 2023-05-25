@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { QuizresultService } from 'src/app/shared/services/quizresult.service';
 
 @Component({
@@ -10,9 +11,9 @@ export class ResultComponent implements OnInit {
 
   incorrectAns:any
   allQues:any
-  totalQuestionsCount:any
+  totalQuestionsCount:any = 0
   wrongAnsCount:any = 0
-  constructor(private quizresult: QuizresultService){}
+  constructor(private quizresult: QuizresultService, private router:Router){}
 
   ngOnInit(){
     this.getQueData()
@@ -30,6 +31,9 @@ export class ResultComponent implements OnInit {
         }
       });
       }
+  }
+  goToQuiz(){
+    this.router.navigate(['quiz'])
   }
 
 }

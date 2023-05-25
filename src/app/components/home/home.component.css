@@ -10,3 +10,9 @@ span{
 span > * {
   margin: 0;
 }
+#input-field{
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+

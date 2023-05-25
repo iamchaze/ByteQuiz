@@ -1,0 +1,10 @@
+#message{
+  display: block;
+  text-align: center;
+  font-size: 2rem;
+}
+#quiz{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

@@ -1,4 +1,5 @@
-<p-card header="TOPIC: {{ category | uppercase }} - {{ difficulty | uppercase }} ">
+<p-card header="" id="q-card">
+  <h4>TOPIC: {{ category | uppercase }} - {{ difficulty | uppercase }}</h4>
     <form #quizForm="ngForm" ngForm (ngSubmit)="submitAnswer(quizForm.value)">
       <div *ngFor="let question of questions | paginate: { itemsPerPage: 1, currentPage: currentPage}">
         <p-divider align="left">
@@ -6,20 +7,20 @@
             <b>Question No. {{ question.questionNo }} of  {{questionCount}} </b>
           </div>
         </p-divider>
-        <h3>{{ question.question }}</h3>
+        <h4 id="question">{{ question.question }}</h4>
         <div *ngFor="let answer of question.answers">
-          <div *ngIf="answer !== null">
+          <div *ngIf="answer !== null" id="option">
             <label name="option"> <input type="radio" ngModel name="option" #radioOption [value]="answer" required> {{ answer }}</label>
           </div>
         </div>
       </div>
-      <p-button label="Submit Answer" styleClass="p-button-success" type="submit" *ngIf="!isAnswerCorrect"></p-button>
+      <div *ngIf="showResult">
+        <p *ngIf="isAnswerCorrect" id="correct" class="alert"><i class="fa fa-check" aria-hidden="true"></i> Correct Answer!</p>
+        <p *ngIf="!isAnswerCorrect" id="wrong" class="alert"><i class="fa fa-times" aria-hidden="true"></i> Wrong Answer, Try Again!</p>
+      </div>
+      <p *ngIf="selectOption" id="warning" class="alert"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Please Select an Option From Above</p>
+      <p-button label="Submit Answer" styleClass="p-button-success" type="submit" *ngIf="!isAnswerCorrect" id="button"></p-button>
     </form>
-  <p-button label="Next Question" (click)="nextQuestion(currentPage)" *ngIf="isAnswerCorrect && !showSubmitQuizButton"></p-button>
-  <p-button label="Submit Quiz" (click)="submitQuiz()" *ngIf="isAnswerCorrect && showSubmitQuizButton"></p-button>
-  <div *ngIf="showResult">
-    <p *ngIf="isAnswerCorrect">Correct Answer!</p>
-    <p *ngIf="!isAnswerCorrect">Wrong Answer, Try Again!</p>
-  </div>
-  <p *ngIf="selectOption">Please Select an Option From Above</p>
+  <p-button label="Next Question" (click)="nextQuestion(currentPage)" *ngIf="isAnswerCorrect && !showSubmitQuizButton" id="button"></p-button>
+  <p-button label="Submit Quiz" (click)="submitQuiz()" *ngIf="isAnswerCorrect && showSubmitQuizButton" id="button"></p-button>
 </p-card>
