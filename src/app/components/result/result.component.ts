@@ -17,7 +17,7 @@ export class ResultComponent implements OnInit {
 
   ngOnInit(){
     this.getQueData()
-    console.log(this.allQues);
+    // console.log(this.allQues);
   }
 
   getQueData(){
@@ -25,7 +25,7 @@ export class ResultComponent implements OnInit {
       if(this.allQues){
         this.totalQuestionsCount = this.allQues?.length
       this.allQues.forEach((question:any) => {
-        console.log(question);
+        // console.log(question);
         if(question.hasOwnProperty('isSolvedWrong')){
           this.wrongAnsCount +=1
         }

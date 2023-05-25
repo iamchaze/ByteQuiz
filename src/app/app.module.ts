@@ -3,14 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { ResultComponent } from './components/result/result.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavComponent } from './components/nav/nav.component';
 import { SanitizeHtmlPipe } from './shared/pipes/sanitize-html.pipe';
-
 //primeng Modules -------------------------------
 import {NgxPaginationModule} from 'ngx-pagination';
 import { DropdownModule } from "primeng/dropdown";
@@ -32,11 +30,11 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { RippleModule } from 'primeng/ripple';
 import { DividerModule } from 'primeng/divider';
+import { NgxUiLoaderModule, NgxUiLoaderRouterModule, NgxUiLoaderHttpModule  } from "ngx-ui-loader";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     QuizComponent,
     ResultComponent,
     NavComponent,
@@ -67,7 +65,12 @@ import { DividerModule } from 'primeng/divider';
     ToggleButtonModule,
     RippleModule,
     DividerModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxUiLoaderModule,
+    NgxUiLoaderRouterModule,
+    NgxUiLoaderHttpModule.forRoot({
+
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

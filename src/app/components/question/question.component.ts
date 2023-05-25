@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { GlobalService } from 'src/app/shared/services/global.service';
 import { QuizresultService } from 'src/app/shared/services/quizresult.service';
+import { NgxUiLoaderService } from "ngx-ui-loader";
 
 @Component({
   selector: 'app-question',
@@ -15,7 +16,8 @@ export class QuestionComponent implements OnInit {
     private router: Router,
     private service: GlobalService,
     private apiService: ApiService,
-    private quizresult: QuizresultService
+    private quizresult: QuizresultService,
+    private uiloader: NgxUiLoaderService
   ) {}
   questions: any = [];
   questionCount: any;
@@ -30,6 +32,7 @@ export class QuestionComponent implements OnInit {
   selectOption: any;
   showSubmitQuizButton: any;
   showSubmitAnswerButton: any;
+  isLoading:any
 
   ngOnInit(): void {
     this.category = this.route.snapshot.paramMap.get('category');
@@ -37,11 +40,15 @@ export class QuestionComponent implements OnInit {
     this.getQuizzes();
   }
   getQuizzes() {
+    this.isLoading = true
+    this.uiloader.startBackground('loader-01')
     this.apiService
       .getQuizzes(this.category, this.difficulty).subscribe((result) => {
         this.questions = result;
         this.questions = this.questions.map((question: any, index: any) => {
           const questionNo = index + 1;
+          this.uiloader.stopBackground('loader-01')
+          this.isLoading = false
           return { ...question, questionNo };
         });
 
@@ -50,7 +57,7 @@ export class QuestionComponent implements OnInit {
           question.answers = Object.values(question.answers);
           question.correct_answers = Object.values(question.correct_answers);
         });
-        console.log(this.questions);
+        // console.log(this.questions);
         this.questionCount = this.questions.length;
       });
   }

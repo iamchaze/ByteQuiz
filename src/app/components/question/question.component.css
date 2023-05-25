@@ -31,3 +31,16 @@ h4{
 #question{
   margin-top: 20px;
 }
+#q-card{
+  position: relative;
+}
+#loader{
+  position: absolute;
+  top: 0;
+}
+.ngx-ui-loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

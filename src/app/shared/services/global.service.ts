@@ -9,20 +9,40 @@ export class GlobalService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  databaseUrl = "http://localhost:3000"
+  databaseUrl = {
+    "Users": [
+      {
+        "id": 1,
+        "username": "viraj",
+        "password": "123",
+        "fullName": "viraj kale",
+        "companyName": "resilinc"
+      },
+      {
+        "fullName": "manas kirad",
+        "companyname": "persistent",
+        "username": "manas",
+        "password": "123",
+        "id": 2
+      },
+      {
+        "fullName": "satyam gaikwad",
+        "companyname": "abc",
+        "username": "satyam",
+        "password": "654",
+        "id": 3
+      }
+    ]
+  }
 
   //-----------------CRUD--------------------
+
   //Get all Records (GET)
   getRecords(path:string){
-    const url = `${this.databaseUrl}/${path}`
-    return this.http.get(url)
+    // const url = `${this.databaseUrl}/${path}`
+    return this.databaseUrl
   }
 
-  //Get Single Record (GET)
-  getSingleRecord(path:string, id:any){
-    const url = `${this.databaseUrl}/${path}/${id}`
-    return  this.http.get(url)
-  }
 
   //Add a Record (POST)
   addRecord(path:string, data:any){
@@ -30,17 +50,6 @@ export class GlobalService {
     return this.http.post(url, data)
   }
 
-  //Delete a Record (DELETE)
-  deleteRecord(path:string, id:any){
-    const url = `${this.databaseUrl}/${path}/${id}`;
-    return this.http.delete(url)
-  }
-
-  //Edit a Record (PUT)
-  editRecord(path:string, data:any){
-    const url = `${this.databaseUrl}/${path}/${data.id}`
-    return this.http.put(url, data)
-  }
 
   // -----------------Autorization-------------------
   login(userdata:any, remember:boolean){
