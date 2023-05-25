@@ -3,7 +3,7 @@
       <div *ngFor="let question of questions | paginate: { itemsPerPage: 1, currentPage: currentPage}">
         <p-divider align="left">
           <div class="inline-flex align-items-center">
-            <b>Question No. {{ question.questionNo }} </b>
+            <b>Question No. {{ question.questionNo }} of 15</b>
           </div>
         </p-divider>
         <h3>{{ question.question }}</h3>
@@ -13,11 +13,13 @@
           </div>
         </div>
       </div>
-      <p-button label="Success" styleClass="p-button-success" type="submit" *ngIf="!isAnswerCorrect"></p-button>
+      <p-button label="Submit Answer" styleClass="p-button-success" type="submit" *ngIf="!isAnswerCorrect"></p-button>
     </form>
-  <p-button label="Next Question" (click)="nextQuestion(currentPage)" *ngIf="isAnswerCorrect"></p-button>
+  <p-button label="Next Question" (click)="nextQuestion(currentPage)" *ngIf="isAnswerCorrect && !showSubmitQuizButton"></p-button>
+  <p-button label="Submit Quiz" (click)="submitQuiz()" *ngIf="isAnswerCorrect && showSubmitQuizButton"></p-button>
   <div *ngIf="showResult">
     <p *ngIf="isAnswerCorrect">Correct Answer!</p>
     <p *ngIf="!isAnswerCorrect">Wrong Answer, Try Again!</p>
   </div>
+  <p *ngIf="selectOption">Please Select an Option From Above</p>
 </p-card>

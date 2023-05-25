@@ -10,6 +10,6 @@ export class ApiService {
   constructor(private http:HttpClient) { }
 
   getQuizzes(category:string, difficulty:string): Observable<any>{
-    return this.http.get(`${this.baseUrl}&category=${category}&difficulty=${difficulty}&limit=15`)
+    return this.http.get(`${this.baseUrl}&category=${category}&difficulty=${difficulty}&limit=3`)
   }
 }
