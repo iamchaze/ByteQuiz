@@ -41,13 +41,13 @@ export class QuestionComponent implements OnInit {
   }
   getQuizzes() {
     this.isLoading = true
-    this.uiloader.startBackground('loader-01')
+    this.uiloader.startBackground()
     this.apiService
       .getQuizzes(this.category, this.difficulty).subscribe((result) => {
         this.questions = result;
         this.questions = this.questions.map((question: any, index: any) => {
           const questionNo = index + 1;
-          this.uiloader.stopBackground('loader-01')
+          this.uiloader.stopBackground()
           this.isLoading = false
           return { ...question, questionNo };
         });
@@ -57,7 +57,7 @@ export class QuestionComponent implements OnInit {
           question.answers = Object.values(question.answers);
           question.correct_answers = Object.values(question.correct_answers);
         });
-        // console.log(this.questions);
+        console.log(this.questions);
         this.questionCount = this.questions.length;
       });
   }
