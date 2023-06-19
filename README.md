@@ -1,5 +1,7 @@
 # QuizMe
 
+Hosted On - https://646f9062b071b12043483388--zesty-baklava-5028ba.netlify.app/
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
 
 ## Development server
