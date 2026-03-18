@@ -1,0 +1,10 @@
+{
+  "/api/quizapi": {
+    "target": "https://quizapi.io",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api/quizapi": "/api/v1"
+    }
+  }
+}

@@ -73,7 +73,7 @@ const FALLBACK_CATEGORIES = [
 })
 export class ApiService {
 
-  private readonly apiRoot = 'https://quizapi.io/api/v1';
+  private readonly apiRoot = '/api/quizapi';
   private readonly apiKey = 'BSBME7NJflwnFFbRbSBHlIHWmBh5XQc5GAXkKyu7';
   private readonly questionCache = new Map<string, QuizApiQuestion[]>();
 
