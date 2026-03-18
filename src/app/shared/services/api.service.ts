@@ -58,12 +58,7 @@ const FALLBACK_CATEGORIES = [
 })
 export class ApiService {
 
-  private readonly apiKey = 'qa_sk_7d9dc01cd7bb2099dd6b481b3d2f5c074e81c8fc';
-  private readonly baseUrl = 'https://quizapi.io/api/v1';
-  private readonly headers = new HttpHeaders({
-    Authorization: `Bearer ${this.apiKey}`
-  });
-
+  baseUrl = 'https://quizapi.io/api/v1/questions?apiKey=BSBME7NJflwnFFbRbSBHlIHWmBh5XQc5GAXkKyu7'
   constructor(private http:HttpClient) { }
 
   getQuizCategories(): Observable<string[]> {
