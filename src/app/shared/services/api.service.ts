@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from "rxjs";
 
@@ -40,39 +40,33 @@ interface QuizApiQuizResponse {
   data: QuizApiQuiz[];
 }
 
-const FALLBACK_CATEGORIES = [
-  'Any',
-  'Cybersecurity',
-  'Data Science',
-  'DevOps',
-  'DevOps/Cloud',
-  'History',
-  'Literature',
-  'Mathematics',
-  'Programming',
-  'Science'
-];
+type QuizApiListResponse<T> = T[] | { data?: T[] };
+type QuizApiCategory = string | { name?: string; category?: string };
+type QuizApiCategoryResponse = QuizApiCategory[] | { data?: QuizApiCategory[] };
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  baseUrl = 'https://quizapi.io/api/v1/questions?apiKey=BSBME7NJflwnFFbRbSBHlIHWmBh5XQc5GAXkKyu7'
+  private readonly apiRoot = 'https://quizapi.io/api/v1';
+  private readonly apiKey = 'BSBME7NJflwnFFbRbSBHlIHWmBh5XQc5GAXkKyu7';
   private readonly headers = new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${this.apiKey}`,
+    'X-Api-Key': this.apiKey
   });
 
   constructor(private http:HttpClient) { }
 
   getQuizCategories(): Observable<string[]> {
     return this.http
-      .get<QuizApiQuizResponse>(`${this.baseUrl}/quizzes?limit=100`, {
+      .get<QuizApiCategoryResponse>(`${this.apiRoot}/categories`, {
         headers: this.headers
       })
       .pipe(
         map((response) => {
-          const categories = [...new Set((response.data ?? []).map((quiz) => quiz.category))]
+          const categories = [...new Set(this.extractCategories(response))]
             .filter(Boolean)
             .sort((a, b) => a.localeCompare(b));
           return ['Any', ...categories];
@@ -81,28 +75,47 @@ export class ApiService {
   }
 
   getQuizzes(category: string, difficulty: string): Observable<QuizApiQuiz[]> {
-    const query = ['limit=24'];
+    let params = new HttpParams().set('limit', '24');
 
     if (category && category !== 'Any') {
-      query.unshift(`category=${encodeURIComponent(category)}`);
+      params = params.set('category', category);
     }
 
     if (difficulty) {
-      query.unshift(`difficulty=${encodeURIComponent(difficulty)}`);
+      params = params.set('difficulty', difficulty);
     }
 
     return this.http
-      .get<QuizApiQuizResponse>(`${this.baseUrl}/quizzes?${query.join('&')}`, {
-        headers: this.headers
+      .get<QuizApiListResponse<QuizApiQuiz>>(`${this.apiRoot}/quizzes`, {
+        headers: this.headers,
+        params
       })
-      .pipe(map((response) => response.data ?? []));
+      .pipe(map((response) => this.extractList(response)));
   }
 
   getQuizQuestions(quizId: string): Observable<QuizApiQuestion[]> {
+    const params = new HttpParams()
+      .set('quizId', quizId)
+      .set('limit', '15');
+
     return this.http
-      .get<QuizApiResponse>(`${this.baseUrl}/questions?quizId=${encodeURIComponent(quizId)}&limit=15`, {
-        headers: this.headers
+      .get<QuizApiListResponse<QuizApiQuestion>>(`${this.apiRoot}/questions`, {
+        headers: this.headers,
+        params
       })
-      .pipe(map((response) => response.data ?? []));
+      .pipe(map((response) => this.extractList(response)));
+  }
+
+  private extractList<T>(response: QuizApiListResponse<T>): T[] {
+    return Array.isArray(response) ? response : response.data ?? [];
+  }
+
+  private extractCategories(response: QuizApiCategoryResponse): string[] {
+    const categories = Array.isArray(response) ? response : response.data ?? [];
+    return categories
+      .map((category) => typeof category === 'string'
+        ? category
+        : category.name ?? category.category ?? '')
+      .filter(Boolean);
   }
 }
