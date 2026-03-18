@@ -48,12 +48,15 @@ interface QuizRecord {
 
 interface QuestionRecord {
   id?: string | number;
-  question?: string;
+  question?: unknown;
+  text?: unknown;
+  title?: unknown;
   category?: string;
   difficulty?: string;
   explanation?: string | null;
-  answers?: Record<string, string | null>;
+  answers?: Record<string, unknown> | Array<unknown>;
   correct_answers?: Record<string, string>;
+  options?: Array<unknown>;
 }
 
 @Injectable({
@@ -174,17 +177,14 @@ export class ApiService {
   }
 
   private mapQuestion(question: QuestionRecord, quizId: string, quizTitle?: string): QuizApiQuestion {
-    const answers = Object.entries(question.answers ?? {})
-      .filter(([, value]) => Boolean(value))
-      .map(([key, value]) => ({
-        id: key,
-        text: value ?? '',
-        isCorrect: (question.correct_answers?.[`${key}_correct`] ?? 'false') === 'true'
-      }));
+    const answers = this.normalizeAnswers(question);
+    const questionText = this.extractDisplayText(
+      question.text ?? question.question ?? question.title
+    );
 
     return {
       id: String(question.id ?? ''),
-      text: question.question ?? 'Untitled question',
+      text: questionText || 'Untitled question',
       difficulty: (question.difficulty ?? 'medium').toLowerCase(),
       category: question.category ?? 'General',
       quizId,
@@ -200,5 +200,78 @@ export class ApiService {
 
   private isListResponse<T>(response: QuizRecord | ApiListResponse<T>): response is { data?: T[] } {
     return 'data' in response;
+  }
+
+  private normalizeAnswers(question: QuestionRecord): QuizApiAnswer[] {
+    if (Array.isArray(question.answers)) {
+      return question.answers
+        .map((answer, index) => this.mapAnswerOption(answer, `answer_${index}`))
+        .filter((answer): answer is QuizApiAnswer => Boolean(answer));
+    }
+
+    if (Array.isArray(question.options)) {
+      return question.options
+        .map((answer, index) => this.mapAnswerOption(answer, `option_${index}`))
+        .filter((answer): answer is QuizApiAnswer => Boolean(answer));
+    }
+
+    return Object.entries(question.answers ?? {})
+      .map(([key, value]) => this.mapAnswerOption(value, key, question.correct_answers?.[`${key}_correct`] === 'true'))
+      .filter((answer): answer is QuizApiAnswer => Boolean(answer));
+  }
+
+  private mapAnswerOption(value: unknown, fallbackId: string, isCorrect = false): QuizApiAnswer | null {
+    if (!value) {
+      return null;
+    }
+
+    if (typeof value === 'string') {
+      return {
+        id: fallbackId,
+        text: value,
+        isCorrect
+      };
+    }
+
+    if (typeof value === 'object') {
+      const record = value as Record<string, unknown>;
+      const text = this.extractDisplayText(
+        record['text'] ?? record['answer'] ?? record['label'] ?? record['title'] ?? record['name'] ?? record['value']
+      );
+
+      if (!text) {
+        return null;
+      }
+
+      return {
+        id: String(record['id'] ?? record['key'] ?? fallbackId),
+        text,
+        isCorrect: isCorrect || record['isCorrect'] === true || record['correct'] === true
+      };
+    }
+
+    return {
+      id: fallbackId,
+      text: String(value),
+      isCorrect
+    };
+  }
+
+  private extractDisplayText(value: unknown): string {
+    if (typeof value === 'string') {
+      return value;
+    }
+
+    if (typeof value === 'number' || typeof value === 'boolean') {
+      return String(value);
+    }
+
+    if (value && typeof value === 'object') {
+      const record = value as Record<string, unknown>;
+      const nestedValue = record['text'] ?? record['question'] ?? record['label'] ?? record['title'] ?? record['name'] ?? record['value'];
+      return this.extractDisplayText(nestedValue);
+    }
+
+    return '';
   }
 }
