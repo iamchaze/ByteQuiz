@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
 })
 export class ApiService {
 
-  baseUrl = 'https://quizapi.io/api/v1/questions?api_key=BSBME7NJflwnFFbRbSBHlIHWmBh5XQc5GAXkKyu7'
+  baseUrl = 'https://quizapi.io/api/v1/questions?api_key=qa_sk_7d9dc01cd7bb2099dd6b481b3d2f5c074e81c8fc'
   constructor(private http:HttpClient) { }
 
   getQuizzes(category:string, difficulty:string): Observable<any>{
