@@ -1,6 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, of } from "rxjs";
+import { catchError, map, Observable, of } from "rxjs";
 
 export interface QuizApiAnswer {
   id: string;
@@ -19,11 +19,6 @@ export interface QuizApiQuestion {
   answers: QuizApiAnswer[];
 }
 
-interface QuizApiResponse {
-  success: boolean;
-  data: QuizApiQuestion[];
-}
-
 export interface QuizApiQuiz {
   id: string;
   title: string;
@@ -35,94 +30,68 @@ export interface QuizApiQuiz {
   tags: string[];
 }
 
-interface QuizApiQuizResponse {
-  success: boolean;
-  data: QuizApiQuiz[];
+type ApiListResponse<T> = T[] | { data?: T[] };
+type CategoryRecord = string | { name?: string; category?: string; title?: string };
+
+interface QuizRecord {
+  id?: string | number;
+  title?: string;
+  description?: string | null;
+  category?: string;
+  difficulty?: string;
+  questionCount?: number;
+  plays?: number;
+  usage?: number;
+  tags?: Array<string | { name?: string }>;
+  questions?: QuestionRecord[];
 }
 
-type QuizApiListResponse<T> = T[] | { data?: T[] };
-type QuizApiCategory = string | { name?: string; category?: string };
-type QuizApiCategoryResponse = QuizApiCategory[] | { data?: QuizApiCategory[] };
-
-interface QuizApiQuestionRecord {
-  id?: number | string;
+interface QuestionRecord {
+  id?: string | number;
   question?: string;
   category?: string;
   difficulty?: string;
-  description?: string | null;
-  tags?: Array<{ name?: string }>;
+  explanation?: string | null;
   answers?: Record<string, string | null>;
   correct_answers?: Record<string, string>;
-  explanation?: string | null;
 }
-
-const FALLBACK_CATEGORIES = [
-  'Any',
-  'Code',
-  'CMS',
-  'DevOps',
-  'Docker',
-  'Linux',
-  'SQL',
-  'BASH',
-  'Uncategorized'
-];
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-
-  private readonly apiRoot = '/api/quizapi';
-  private readonly apiKey = 'BSBME7NJflwnFFbRbSBHlIHWmBh5XQc5GAXkKyu7';
+  private readonly apiRoot = 'https://quizapi.io/api/v1';
+  private readonly apiKey = 'qa_sk_7d9dc01cd7bb2099dd6b481b3d2f5c074e81c8fc';
+  private readonly headers = new HttpHeaders({
+    Authorization: `Bearer ${this.apiKey}`
+  });
   private readonly questionCache = new Map<string, QuizApiQuestion[]>();
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getQuizCategories(): Observable<string[]> {
     return this.http
-      .get<QuizApiCategoryResponse>(`${this.apiRoot}/categories`, {
-        params: new HttpParams().set('apiKey', this.apiKey)
+      .get<ApiListResponse<CategoryRecord>>(`${this.apiRoot}/categories`, {
+        headers: this.headers
       })
       .pipe(
-        map((response) => {
-          const categories = [...new Set(this.extractCategories(response))]
-            .filter(Boolean)
-            .sort((a, b) => a.localeCompare(b));
-          return categories.length ? ['Any', ...categories] : FALLBACK_CATEGORIES;
-        })
+        map((response) => this.extractList(response)
+          .map((item) => typeof item === 'string' ? item : item.name ?? item.category ?? item.title ?? '')
+          .filter(Boolean)
+          .sort((a, b) => a.localeCompare(b))),
+        map((categories) => ['Any', ...new Set(categories)])
       );
   }
 
   getQuizzes(category: string, difficulty: string): Observable<QuizApiQuiz[]> {
     return this.http
-      .get<QuizApiListResponse<QuizApiQuestionRecord>>(`${this.apiRoot}/questions`, {
-        params: this.buildQuestionParams(category, difficulty)
+      .get<ApiListResponse<QuizRecord>>(`${this.apiRoot}/quizzes`, {
+        headers: this.headers,
+        params: this.buildQuizParams(category, difficulty)
       })
       .pipe(
-        map((response) => this.extractList(response).map((item) => this.mapQuestion(item))),
-        map((questions) => {
-          if (!questions.length) {
-            return [];
-          }
-
-          const quizId = this.createQuizId(category, difficulty);
-          this.questionCache.set(quizId, questions);
-
-          const firstQuestion = questions[0];
-          const questionCount = questions.length;
-
-          return [{
-            id: quizId,
-            title: this.buildQuizTitle(category, difficulty),
-            description: `Generated from live QuizAPI questions for ${firstQuestion.category} at ${firstQuestion.difficulty} level.`,
-            category: firstQuestion.category,
-            difficulty: firstQuestion.difficulty,
-            questionCount,
-            plays: questionCount,
-            tags: [firstQuestion.category, firstQuestion.difficulty]
-          }];
-        })
+        map((response) => this.extractList(response).map((quiz) => this.mapQuiz(quiz))),
+        map((quizzes) => quizzes.filter((quiz) => Boolean(quiz.id)))
       );
   }
 
@@ -132,35 +101,25 @@ export class ApiService {
       return of(cachedQuestions);
     }
 
-    const filters = this.parseQuizId(quizId);
-    if (!filters) {
-      return of([]);
-    }
-
     return this.http
-      .get<QuizApiListResponse<QuizApiQuestionRecord>>(`${this.apiRoot}/questions`, {
-        params: this.buildQuestionParams(filters.category, filters.difficulty)
+      .get<QuizRecord | ApiListResponse<QuestionRecord>>(`${this.apiRoot}/quizzes/${encodeURIComponent(quizId)}`, {
+        headers: this.headers
       })
-      .pipe(map((response) => this.extractList(response).map((item) => this.mapQuestion(item))));
+      .pipe(
+        map((response) => this.extractQuestionsFromQuizResponse(response, quizId)),
+        catchError(() => this.http
+          .get<ApiListResponse<QuestionRecord>>(`${this.apiRoot}/questions`, {
+            headers: this.headers,
+            params: new HttpParams()
+              .set('quizId', quizId)
+              .set('limit', '15')
+          })
+          .pipe(map((response) => this.extractList(response).map((question) => this.mapQuestion(question, quizId)))))
+      );
   }
 
-  private extractList<T>(response: QuizApiListResponse<T>): T[] {
-    return Array.isArray(response) ? response : response.data ?? [];
-  }
-
-  private extractCategories(response: QuizApiCategoryResponse): string[] {
-    const categories = Array.isArray(response) ? response : response.data ?? [];
-    return categories
-      .map((category) => typeof category === 'string'
-        ? category
-        : category.name ?? category.category ?? '')
-      .filter(Boolean);
-  }
-
-  private buildQuestionParams(category: string, difficulty: string): HttpParams {
-    let params = new HttpParams()
-      .set('apiKey', this.apiKey)
-      .set('limit', '10');
+  private buildQuizParams(category: string, difficulty: string): HttpParams {
+    let params = new HttpParams().set('limit', '20');
 
     if (category && category !== 'Any') {
       params = params.set('category', category);
@@ -173,7 +132,48 @@ export class ApiService {
     return params;
   }
 
-  private mapQuestion(question: QuizApiQuestionRecord): QuizApiQuestion {
+  private mapQuiz(quiz: QuizRecord): QuizApiQuiz {
+    const quizId = String(quiz.id ?? '');
+    const normalizedQuestions = (quiz.questions ?? []).map((question) => this.mapQuestion(question, quizId, quiz.title));
+
+    if (quizId && normalizedQuestions.length) {
+      this.questionCache.set(quizId, normalizedQuestions);
+    }
+
+    const tags = (quiz.tags ?? [])
+      .map((tag) => typeof tag === 'string' ? tag : tag.name ?? '')
+      .filter(Boolean);
+
+    return {
+      id: quizId,
+      title: quiz.title ?? 'Untitled Quiz',
+      description: quiz.description ?? '',
+      category: quiz.category ?? 'General',
+      difficulty: (quiz.difficulty ?? 'medium').toLowerCase(),
+      questionCount: quiz.questionCount ?? normalizedQuestions.length,
+      plays: quiz.plays ?? quiz.usage ?? 0,
+      tags
+    };
+  }
+
+  private extractQuestionsFromQuizResponse(
+    response: QuizRecord | ApiListResponse<QuestionRecord>,
+    quizId: string
+  ): QuizApiQuestion[] {
+    if (Array.isArray(response) || this.isListResponse(response)) {
+      return this.extractList(response).map((question) => this.mapQuestion(question, quizId));
+    }
+
+    const questions = (response.questions ?? []).map((question: QuestionRecord) =>
+      this.mapQuestion(question, quizId, response.title)
+    );
+    if (questions.length) {
+      this.questionCache.set(quizId, questions);
+    }
+    return questions;
+  }
+
+  private mapQuestion(question: QuestionRecord, quizId: string, quizTitle?: string): QuizApiQuestion {
     const answers = Object.entries(question.answers ?? {})
       .filter(([, value]) => Boolean(value))
       .map(([key, value]) => ({
@@ -183,36 +183,22 @@ export class ApiService {
       }));
 
     return {
-      id: String(question.id ?? crypto.randomUUID()),
+      id: String(question.id ?? ''),
       text: question.question ?? 'Untitled question',
-      difficulty: question.difficulty ?? 'medium',
+      difficulty: (question.difficulty ?? 'medium').toLowerCase(),
       category: question.category ?? 'General',
-      quizId: this.createQuizId(question.category ?? 'Any', question.difficulty ?? 'medium'),
-      quizTitle: this.buildQuizTitle(question.category ?? 'Any', question.difficulty ?? 'medium'),
+      quizId,
+      quizTitle: quizTitle ?? 'Quiz Session',
       explanation: question.explanation ?? undefined,
       answers
     };
   }
 
-  private buildQuizTitle(category: string, difficulty: string): string {
-    const normalizedCategory = category && category !== 'Any' ? category : 'Mixed';
-    const normalizedDifficulty = difficulty || 'mixed';
-    return `${normalizedCategory} ${normalizedDifficulty} challenge`;
+  private extractList<T>(response: ApiListResponse<T>): T[] {
+    return Array.isArray(response) ? response : response.data ?? [];
   }
 
-  private createQuizId(category: string, difficulty: string): string {
-    return `${encodeURIComponent(category || 'Any')}::${encodeURIComponent(difficulty || 'mixed')}`;
-  }
-
-  private parseQuizId(quizId: string): { category: string; difficulty: string } | null {
-    const [category, difficulty] = quizId.split('::');
-    if (!category || !difficulty) {
-      return null;
-    }
-
-    return {
-      category: decodeURIComponent(category),
-      difficulty: decodeURIComponent(difficulty)
-    };
+  private isListResponse<T>(response: QuizRecord | ApiListResponse<T>): response is { data?: T[] } {
+    return 'data' in response;
   }
 }
