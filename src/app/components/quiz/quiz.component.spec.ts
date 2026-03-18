@@ -1,4 +1,7 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { QuizComponent } from './quiz.component';
 
@@ -8,7 +11,9 @@ describe('QuizComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [QuizComponent]
+      imports: [ReactiveFormsModule, RouterTestingModule],
+      declarations: [QuizComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     });
     fixture = TestBed.createComponent(QuizComponent);
     component = fixture.componentInstance;

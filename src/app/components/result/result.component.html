@@ -1,2 +1,15 @@
-<p id="message"> You Got {{totalQuestionsCount - wrongAnsCount}}/{{totalQuestionsCount}} Answers Correct  </p>
-<p-button label="Take Another Quiz" id="quiz" styleClass="p-button-raised p-button-help" (click)="goToQuiz()"></p-button>
+<section
+  class="result-shell"
+  [class.result-shell--great]="isGreatScore"
+  [class.result-shell--poor]="isPoorScore">
+  <div class="confetti-burst" *ngIf="isGreatScore" aria-hidden="true">
+    <span class="confetti-piece" *ngFor="let piece of confettiPieces"></span>
+  </div>
+  <div class="rain-layer" *ngIf="isPoorScore" aria-hidden="true">
+    <span class="rain-piece" *ngFor="let piece of rainPieces"></span>
+  </div>
+  <p class="result-label">{{ isGreatScore ? 'Outstanding Score' : isPoorScore ? 'Needs Another Try' : 'Quiz Complete' }}</p>
+  <h3 id="message">{{ correctAnswersCount }} / {{ totalQuestionsCount }}</h3>
+  <p class="result-copy">{{ scorePercent }}% correct.</p>
+  <button class="btn btn-primary" id="quiz" (click)="goToQuiz()">Browse More Quizzes</button>
+</section>

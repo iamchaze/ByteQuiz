@@ -1,9 +1,19 @@
-<h2>ByteQuiz</h2>
-<div class="card">
-  <div class="card-header" *ngIf="router.url != '/' && router.url != '/login'">
-  </div>
-  <div class="card-body">
+<div class="app-shell" [class.dark-mode]="isDarkMode">
+  <header class="app-header">
+    <div>
+      <div class="app-brandmark" aria-hidden="true">BQ</div>
+      <h2>ByteQuiz</h2>
+    </div>
+    <button
+      class="theme-toggle"
+      type="button"
+      (click)="toggleTheme()"
+      [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'"
+      [title]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
+      <span aria-hidden="true">{{ isDarkMode ? '☀' : '☾' }}</span>
+    </button>
+  </header>
+  <main class="app-surface">
     <router-outlet></router-outlet>
-  </div>
+  </main>
 </div>
-<ngx-ui-loader></ngx-ui-loader>

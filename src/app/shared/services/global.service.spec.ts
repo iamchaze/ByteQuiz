@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { GlobalService } from './global.service';
 
@@ -6,7 +8,9 @@ describe('GlobalService', () => {
   let service: GlobalService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule, RouterTestingModule]
+    });
     service = TestBed.inject(GlobalService);
   });
 

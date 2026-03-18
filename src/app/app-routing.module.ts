@@ -7,7 +7,7 @@ import { QuestionComponent } from './components/question/question.component';
 const routes: Routes = [
   {path:"", component:QuizComponent},
   {path:"quiz", component:QuizComponent},
-  {path:"question/:category/:difficulty", component:QuestionComponent},
+  {path:"question/:quizId", component:QuestionComponent},
   {path:"result", component:ResultComponent},
   { path: "**", component: QuizComponent },
 ];

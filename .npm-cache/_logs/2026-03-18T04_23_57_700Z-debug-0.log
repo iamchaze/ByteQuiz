@@ -1,0 +1,141 @@
+0 verbose cli C:\nvm4w\nodejs\node.exe C:\nvm4w\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.9.0
+2 info using node@v24.14.0
+3 silly config load:file:C:\Users\viraj\AppData\Local\nvm\v24.14.0\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\viraj\OneDrive\Desktop\ByteQuiz\ByteQuiz\.npmrc
+5 silly config load:file:C:\Users\CodexSandboxOffline\.npmrc
+6 silly config load:file:C:\nvm4w\nodejs\etc\npmrc
+7 verbose title npm install
+8 verbose argv "install"
+9 verbose logfile logs-max:10 dir:c:\Users\viraj\OneDrive\Desktop\ByteQuiz\ByteQuiz\.npm-cache\_logs\2026-03-18T04_23_57_700Z-
+10 verbose logfile c:\Users\viraj\OneDrive\Desktop\ByteQuiz\ByteQuiz\.npm-cache\_logs\2026-03-18T04_23_57_700Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2348810240 maxSize:587202560 maxEntrySize:293601280
+13 silly idealTree buildDeps
+14 silly fetch manifest @angular/cdk@^21.2.4
+15 silly packumentCache full:https://registry.npmjs.org/@angular%2fcdk cache-miss
+16 http fetch GET 200 https://registry.npmjs.org/npm 711ms
+17 http fetch GET 200 https://registry.npmjs.org/@angular%2fcdk 726ms (cache miss)
+18 silly packumentCache full:https://registry.npmjs.org/@angular%2fcdk set size:undefined disposed:false
+19 silly fetch manifest @angular/animations@^21.2.4
+20 silly packumentCache full:https://registry.npmjs.org/@angular%2fanimations cache-miss
+21 http fetch GET 200 https://registry.npmjs.org/@angular%2fanimations 425ms (cache miss)
+22 silly packumentCache full:https://registry.npmjs.org/@angular%2fanimations set size:undefined disposed:false
+23 silly fetch manifest @angular/core@^21.2.4
+24 silly packumentCache full:https://registry.npmjs.org/@angular%2fcore cache-miss
+25 http fetch GET 200 https://registry.npmjs.org/@angular%2fcore 418ms (cache miss)
+26 silly packumentCache full:https://registry.npmjs.org/@angular%2fcore set size:undefined disposed:false
+27 silly fetch manifest @angular/compiler@^21.2.4
+28 silly packumentCache full:https://registry.npmjs.org/@angular%2fcompiler cache-miss
+29 http fetch GET 200 https://registry.npmjs.org/@angular%2fcompiler 408ms (cache miss)
+30 silly packumentCache full:https://registry.npmjs.org/@angular%2fcompiler set size:undefined disposed:false
+31 silly fetch manifest rxjs@~7.8.0
+32 silly packumentCache full:https://registry.npmjs.org/rxjs cache-miss
+33 http fetch GET 200 https://registry.npmjs.org/rxjs 134ms (cache miss)
+34 silly packumentCache full:https://registry.npmjs.org/rxjs set size:undefined disposed:false
+35 silly fetch manifest zone.js@~0.16.1
+36 silly packumentCache full:https://registry.npmjs.org/zone.js cache-miss
+37 http fetch GET 200 https://registry.npmjs.org/zone.js 102ms (cache miss)
+38 silly packumentCache full:https://registry.npmjs.org/zone.js set size:undefined disposed:false
+39 silly fetch manifest @angular/common@^21.2.4
+40 silly packumentCache full:https://registry.npmjs.org/@angular%2fcommon cache-miss
+41 http fetch GET 200 https://registry.npmjs.org/@angular%2fcommon 402ms (cache miss)
+42 silly packumentCache full:https://registry.npmjs.org/@angular%2fcommon set size:undefined disposed:false
+43 silly fetch manifest @angular/forms@^21.2.4
+44 silly packumentCache full:https://registry.npmjs.org/@angular%2fforms cache-miss
+45 http fetch GET 200 https://registry.npmjs.org/@angular%2fforms 665ms (cache miss)
+46 silly packumentCache full:https://registry.npmjs.org/@angular%2fforms set size:undefined disposed:false
+47 silly fetch manifest @angular/platform-browser@^21.2.4
+48 silly packumentCache full:https://registry.npmjs.org/@angular%2fplatform-browser cache-miss
+49 http fetch GET 200 https://registry.npmjs.org/@angular%2fplatform-browser 395ms (cache miss)
+50 silly packumentCache full:https://registry.npmjs.org/@angular%2fplatform-browser set size:undefined disposed:false
+51 silly fetch manifest @angular/platform-browser-dynamic@^21.2.4
+52 silly packumentCache full:https://registry.npmjs.org/@angular%2fplatform-browser-dynamic cache-miss
+53 http fetch GET 200 https://registry.npmjs.org/@angular%2fplatform-browser-dynamic 377ms (cache miss)
+54 silly packumentCache full:https://registry.npmjs.org/@angular%2fplatform-browser-dynamic set size:undefined disposed:false
+55 silly fetch manifest @angular/router@^21.2.4
+56 silly packumentCache full:https://registry.npmjs.org/@angular%2frouter cache-miss
+57 http fetch GET 200 https://registry.npmjs.org/@angular%2frouter 388ms (cache miss)
+58 silly packumentCache full:https://registry.npmjs.org/@angular%2frouter set size:undefined disposed:false
+59 silly fetch manifest @popperjs/core@^2.11.8
+60 silly packumentCache full:https://registry.npmjs.org/@popperjs%2fcore cache-miss
+61 http fetch GET 200 https://registry.npmjs.org/@popperjs%2fcore 146ms (cache miss)
+62 silly packumentCache full:https://registry.npmjs.org/@popperjs%2fcore set size:undefined disposed:false
+63 silly fetch manifest bootstrap@^5.2.3
+64 silly packumentCache full:https://registry.npmjs.org/bootstrap cache-miss
+65 http fetch GET 200 https://registry.npmjs.org/bootstrap 121ms (cache miss)
+66 silly packumentCache full:https://registry.npmjs.org/bootstrap set size:undefined disposed:false
+67 silly fetch manifest font-awesome@^4.7.0
+68 silly packumentCache full:https://registry.npmjs.org/font-awesome cache-miss
+69 http fetch GET 200 https://registry.npmjs.org/font-awesome 89ms (cache miss)
+70 silly packumentCache full:https://registry.npmjs.org/font-awesome set size:undefined disposed:false
+71 silly fetch manifest ngx-pagination@^6.0.3
+72 silly packumentCache full:https://registry.npmjs.org/ngx-pagination cache-miss
+73 http fetch GET 200 https://registry.npmjs.org/ngx-pagination 87ms (cache miss)
+74 silly packumentCache full:https://registry.npmjs.org/ngx-pagination set size:undefined disposed:false
+75 silly fetch manifest ngx-ui-loader@^13.0.0
+76 silly packumentCache full:https://registry.npmjs.org/ngx-ui-loader cache-miss
+77 http fetch GET 200 https://registry.npmjs.org/ngx-ui-loader 354ms (cache miss)
+78 silly packumentCache full:https://registry.npmjs.org/ngx-ui-loader set size:undefined disposed:false
+79 silly fetch manifest primeicons@^6.0.1
+80 silly packumentCache full:https://registry.npmjs.org/primeicons cache-miss
+81 http fetch GET 200 https://registry.npmjs.org/primeicons 80ms (cache miss)
+82 silly packumentCache full:https://registry.npmjs.org/primeicons set size:undefined disposed:false
+83 silly fetch manifest primeng@^21.1.3
+84 silly packumentCache full:https://registry.npmjs.org/primeng cache-miss
+85 http fetch GET 200 https://registry.npmjs.org/primeng 568ms (cache miss)
+86 silly packumentCache full:https://registry.npmjs.org/primeng set size:undefined disposed:false
+87 silly fetch manifest @angular/cdk@^21.2.4
+88 silly packumentCache full:https://registry.npmjs.org/@angular%2fcdk cache-miss
+89 http cache https://registry.npmjs.org/@angular%2fcdk 46ms (cache hit)
+90 silly packumentCache full:https://registry.npmjs.org/@angular%2fcdk set size:3575435 disposed:false
+91 silly fetch manifest @angular/cdk@^21.0.0
+92 silly packumentCache full:https://registry.npmjs.org/@angular%2fcdk cache-miss
+93 http cache https://registry.npmjs.org/@angular%2fcdk 33ms (cache hit)
+94 silly packumentCache full:https://registry.npmjs.org/@angular%2fcdk set size:3575435 disposed:false
+95 verbose stack Error: unable to resolve dependency tree
+95 verbose stack     at #failPeerConflict (C:\Users\viraj\AppData\Local\nvm\v24.14.0\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:1402:25)
+95 verbose stack     at #loadPeerSet (C:\Users\viraj\AppData\Local\nvm\v24.14.0\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:1368:33)
+95 verbose stack     at async #buildDepStep (C:\Users\viraj\AppData\Local\nvm\v24.14.0\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:916:11)
+95 verbose stack     at async Arborist.buildIdealTree (C:\Users\viraj\AppData\Local\nvm\v24.14.0\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:170:7)
+95 verbose stack     at async Promise.all (index 1)
+95 verbose stack     at async Arborist.reify (C:\Users\viraj\AppData\Local\nvm\v24.14.0\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:110:5)
+95 verbose stack     at async Install.exec (C:\Users\viraj\AppData\Local\nvm\v24.14.0\node_modules\npm\lib\commands\install.js:151:5)
+95 verbose stack     at async Npm.exec (C:\Users\viraj\AppData\Local\nvm\v24.14.0\node_modules\npm\lib\npm.js:208:9)
+95 verbose stack     at async module.exports (C:\Users\viraj\AppData\Local\nvm\v24.14.0\node_modules\npm\lib\cli\entry.js:67:5)
+96 error code ERESOLVE
+97 error ERESOLVE unable to resolve dependency tree
+98 error
+99 error While resolving: quiz-me@0.0.0
+99 error Found: @angular/cdk@undefined
+99 error node_modules/@angular/cdk
+99 error   @angular/cdk@"^21.2.4" from the root project
+99 error
+99 error Could not resolve dependency:
+99 error peer @angular/cdk@"^21.0.0" from primeng@21.1.3
+99 error node_modules/primeng
+99 error   primeng@"^21.1.3" from the root project
+99 error
+99 error Fix the upstream dependency conflict, or retry
+99 error this command with --force or --legacy-peer-deps
+99 error to accept an incorrect (and potentially broken) dependency resolution.
+100 error
+100 error
+100 error For a full report see:
+100 error c:\Users\viraj\OneDrive\Desktop\ByteQuiz\ByteQuiz\.npm-cache\_logs\2026-03-18T04_23_57_700Z-eresolve-report.txt
+101 silly unfinished npm timer reify 1773807838556
+102 silly unfinished npm timer reify:loadTrees 1773807838557
+103 silly unfinished npm timer idealTree:buildDeps 1773807838572
+104 silly unfinished npm timer idealTree:#root 1773807838572
+105 verbose cwd C:\Users\viraj\OneDrive\Desktop\ByteQuiz\ByteQuiz
+106 verbose os Windows_NT 10.0.26200
+107 verbose node v24.14.0
+108 verbose npm  v11.9.0
+109 notice
+109 notice New minor version of npm available! 11.9.0 -> 11.11.1
+109 notice Changelog: https://github.com/npm/cli/releases/tag/v11.11.1
+109 notice To update run: npm install -g npm@11.11.1
+109 notice  { force: true, Symbol(proc-log.meta): true }
+110 verbose exit 1
+111 verbose code 1
+112 error A complete log of this run can be found in: c:\Users\viraj\OneDrive\Desktop\ByteQuiz\ByteQuiz\.npm-cache\_logs\2026-03-18T04_23_57_700Z-debug-0.log
