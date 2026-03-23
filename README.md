@@ -1,4 +1,4 @@
-# QuizMe
+# ByteQuiz
 
 Hosted On - [https://byte-quiz-three.vercel.app]
 
